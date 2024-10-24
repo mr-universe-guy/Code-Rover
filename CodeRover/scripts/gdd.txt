@@ -1,0 +1,21 @@
+platformer
+
+a platformer built by android, for android
+
+the origin of Ennis
+deep in the shadows of the universe exists a world unknown to humans. here lie the creatures of shadow. born from the fears of the creatures of the light, the shadows lead solitary lives. they only know the emotions they were born of.
+ennis is a shadow who was born from despair of a loved one, and just happened to be born with both the sadness and love. This manifested as a heart visible to other creatures of shadow who seek to steal the heart from her.
+not all creatures of shadow mindlessly seek other emotions that sometimes appear. Ennis will meet several other creatures who have either been born qith or acquired emotions for themselves. some of these creatures seek to aid Ennis, while others seek to betray her.
+throughout the game, ennis will learn what love is by encountering tears between the shadow and light. througg these she will witness acts of love and kindness. at first she will think that love is something you force upon someone to benefit yourself. doing this she discovers that when she interacts with the light it has unforseen consequences. she also learns that what she thought was love isnt right.
+her continued manipulations eventually attract a shadow ennis cannot defeat, and ennis wind up captured. while the shadow prepares a ritual to remove ennis heart, ennis finds a tear into the realm of light. realizing the person she is watching has lost the ability to feel love, and will likely become a shadow themselves, ennis pulls out her own heart and gives it to the person. before she can witness the effects of her actions she must return to the shadow.
+the shadow creature begins the ritual and quickly discovers ennis no longer has a heart. in the creatures rage ennis escapes. there is a time skip showing ennis hiding from the creature, and feeling drawn towards her old heart. ennis doesnt realize, but a tiny fragment of a heart has started growing back within her, something the player should get a faint glimpse of.
+finally, one day ennis is fleeing a shadow creature and feels drawn towards a tear. she jumps through and grabs the tear, forcing it closed.
+the end?
+enemies try to rip Ennis' heart from her chest.
+
+Ennis
+whenever ennis is in shadow she looks like a monster, except her heart glows brightly.
+player controls character who can walk, jump, roll and attack with claws.
+
+enemies include shadow creatures
+Worms:
