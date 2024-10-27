@@ -6,6 +6,7 @@
 
 body, html {
   height: 100%;
+  font-family: "Geo", sans-serif;
 }
 
 .game_container {
@@ -16,7 +17,7 @@ body, html {
   flex-direction: column;
 }
 
-.render_blocks {
+.render_tools {
   display: grid;
   gap: 20px;
   width: 100%;
@@ -45,6 +46,16 @@ body, html {
   justify-content: center;
   flex-direction: column;
   flex-wrap: nowrap;
+}
+
+.tool_title{
+  background-color: silver;
+  text-align: center;
+}
+
+.program_title{
+  background-color: silver;
+  text-align: center;
 }
 
 .program_area{
