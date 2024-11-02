@@ -97,8 +97,10 @@ body, html {
 }
 
 .prog_ghost{
-  display: block;
   opacity: 0.5;
+}
+
+.absolute{
   position: absolute;
 }
 
