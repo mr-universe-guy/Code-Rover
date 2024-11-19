@@ -33,47 +33,59 @@ for(let t of tools){
     toolArea.appendChild(el);
 }
 
+function startGhost(event){
+    //console.log(event.type, event.target);
+    //clone target and begin dragging clone
+    tool = event.target;
+    ghost = event.target.cloneNode(true);
+    ghostMode = 1;
+    ghost.classList.add("prog_ghost", "absolute");
+    gameContainer.appendChild(ghost);
+    const rect = event.target.getBoundingClientRect();
+    position.x = event.clientX0;
+    position.y = event.clientY0;
+}
+
+function endGhost(){
+    ghost.remove();
+    ghostMode = 0;
+}
+
+function moveGhost(event){
+    if(event.dragEnter){
+        //console.log("entered drop zone");
+        ghost.classList.remove("absolute");
+        ghost.style.transform = "inherit";
+        //event.dragEnter.appendChild(ghost);
+        ghostMode = 2;
+    } else if(event.dragLeave){
+        //console.log("left drop zone");
+        gameContainer.appendChild(ghost);
+        ghost.classList.add("absolute");
+        ghostMode = 1;
+    }
+    if(ghostMode == 1){
+        position.x += event.dx;
+        position.y += event.dy;
+        ghost.style.transform =
+        `translate(${position.x}px, ${position.y}px)`;
+    } else if(ghostMode == 2){
+                
+    }
+}
+
 //spawn new prog blocks from available tools
 dragTools.draggable({
     listeners: {
         start (event) {
-            //console.log(event.type, event.target);
-            //clone target and begin dragging clone
-            tool = event.target;
-            ghost = event.target.cloneNode(true);
-            ghostMode = 1;
-            ghost.classList.add("prog_ghost", "absolute");
-            gameContainer.appendChild(ghost);
-            const rect = event.target.getBoundingClientRect();
-            position.x = event.clientX0;
-            position.y = event.clientY0;
+            startGhost(event);
         },
         move (event) {
-            if(event.dragEnter){
-                //console.log("entered drop zone");
-                ghost.classList.remove("absolute");
-                ghost.style.transform = "inherit";
-                //event.dragEnter.appendChild(ghost);
-                ghostMode = 2;
-            } else if(event.dragLeave){
-                //console.log("left drop zone");
-                gameContainer.appendChild(ghost);
-                ghost.classList.add("absolute");
-                ghostMode = 1;
-            }
-            if(ghostMode == 1){
-                position.x += event.dx;
-                position.y += event.dy;
-                ghost.style.transform =
-                `translate(${position.x}px, ${position.y}px)`;
-            } else if(ghostMode == 2){
-                
-            }
+            moveGhost(event);
         },
         end (event){
             if(ghostMode == 1){
-                ghost.remove();
-                ghostMode = 0;
+                endGhost();
             }
         }
     }
@@ -92,15 +104,15 @@ function dropProgBlock(event){
         console.log("a tool is being dropped");
         ghost.after(createBlockFromTool());
         tool = null;
-    } else{
-        
+    } else if(event.relatedTarget.classList.contains("prog_block")){
+        console.log("a prog block is being dropped");
     }
     ghost.remove();
     ghostMode = 0;
 }
 
 progDropZone.dropzone({
-    accept: '.tool',
+    accept: '.tool, .prog_block',
     ondrop: function(event){
         dropProgBlock(event);
     },
@@ -112,8 +124,24 @@ progDropZone.dropzone({
     },
 });
 
+progBlocks.draggable({
+    listeners:{
+        start(event){
+            console.log("Start move prog block");
+        },
+        move(event){
+            ghost = event.target;
+            ghostMode = 1;
+            moveGhost(event);
+        },
+        end(event){
+            console.log("end move prog block");
+        }
+    }
+});
+
 progBlocks.dropzone({
-    accept: '.tool',
+    accept: '.tool, .prog_block',
     ondragenter: function(event){
         event.target.before(ghost);
     },
