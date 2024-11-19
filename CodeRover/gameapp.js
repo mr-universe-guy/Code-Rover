@@ -18,10 +18,7 @@ const tools = [
     {type:"movement", name:"left"}
 ];
 
-function getNewProgBlockId(){
-    curBlockId += 1;
-    return curBlockId;
-}
+
 //create tools
 for(let t of tools){
     console.log(t.type+":"+t.name);
@@ -33,11 +30,9 @@ for(let t of tools){
     toolArea.appendChild(el);
 }
 
+//----- ghost stuff -----
 function startGhost(event){
-    //console.log(event.type, event.target);
     //clone target and begin dragging clone
-    tool = event.target;
-    ghost = event.target.cloneNode(true);
     ghostMode = 1;
     ghost.classList.add("prog_ghost", "absolute");
     gameContainer.appendChild(ghost);
@@ -74,10 +69,18 @@ function moveGhost(event){
     }
 }
 
+//----- prog blocks and tools -----
+function getNewProgBlockId(){
+    curBlockId += 1;
+    return curBlockId;
+}
+
 //spawn new prog blocks from available tools
 dragTools.draggable({
     listeners: {
         start (event) {
+			tool = event.target;
+			ghost = event.target.cloneNode(true);
             startGhost(event);
         },
         move (event) {
@@ -87,6 +90,21 @@ dragTools.draggable({
             if(ghostMode == 1){
                 endGhost();
             }
+        }
+    }
+});
+
+//drag existing blocks
+progBlocks.draggable({
+    listeners:{
+        start(event){
+			ghost = event.target;
+            ghostMode = 1;
+			ghost.classList.add("prog_ghost");
+            console.log("Start move prog block");
+        },
+        move(event){
+            moveGhost(event);
         }
     }
 });
@@ -104,13 +122,15 @@ function dropProgBlock(event){
         console.log("a tool is being dropped");
         ghost.after(createBlockFromTool());
         tool = null;
+		ghost.remove();
     } else if(event.relatedTarget.classList.contains("prog_block")){
         console.log("a prog block is being dropped");
+		ghost.classList.remove("prog_ghost");
     }
-    ghost.remove();
     ghostMode = 0;
 }
 
+//----- prog block drop zones -----
 progDropZone.dropzone({
     accept: '.tool, .prog_block',
     ondrop: function(event){
@@ -118,25 +138,6 @@ progDropZone.dropzone({
     },
     ondragenter: function(event){
         event.target.append(ghost);
-    },
-    ondragleave: function(event){
-        //console.log("drop zone left by drag")
-    },
-});
-
-progBlocks.draggable({
-    listeners:{
-        start(event){
-            console.log("Start move prog block");
-        },
-        move(event){
-            ghost = event.target;
-            ghostMode = 1;
-            moveGhost(event);
-        },
-        end(event){
-            console.log("end move prog block");
-        }
     }
 });
 
@@ -150,6 +151,7 @@ progBlocks.dropzone({
     },
 });
 
+//----- app stuff -----
 const appContainer = document.getElementById("render_area");
 const app = new PIXI.Application({
     background: '#1099bb',
