@@ -151,6 +151,21 @@ progBlocks.dropzone({
     },
 });
 
+//----- button actions -----
+function upload(){
+    console.log("upload program");
+}
+
+function clearProgram(){
+    //confirm dialogue if false, clear area if true.
+    if(confirm("Erase current program blocks?")){
+        let children = progArea.querySelectorAll(".prog_block");
+        for(const child of children){
+            child.remove();
+        }
+    }
+}
+
 //----- app stuff -----
 const appContainer = document.getElementById("render_area");
 const app = new PIXI.Application({
